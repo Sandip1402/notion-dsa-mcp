@@ -1,22 +1,24 @@
 {
   "name": "notion-dsa-mcp",
   "version": "1.0.0",
-  "description": "",
+  "description": "A mcp server package that connects with notion and helps update dsa notebook",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --env-file=.env index.js",
+    "test": "npx dotenvx run -- tsx src/test.ts",
+    "dev": "npx dotenvx run -- tsx src/index.ts",
     "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
-    "start": "node --env-file=.env dist/index.js",
-    "inspect": "npx @modelcontextprotocol/inspector node --env-file=.env --import tsx src/index.ts"
+    "start": "npx dotenvx run -- tsx dist/index.js",
+    "inspect": "npx @modelcontextprotocol/inspector node --env-file-if-exists=.env --import tsx src/index.ts"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["mcp server", "notion", "leetcode", "problem-solving", "dsa-notebook-update"],
+  "author": "Sandip Das",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@dotenvx/dotenvx": "^2.38.2",
     "@modelcontextprotocol/server": "^2.4.0",
     "@notionhq/client": "^5.31.1",
+    "leetcode-query": "^2.0.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {

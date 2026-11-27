@@ -2,11 +2,22 @@ import { McpServer } from "@modelcontextprotocol/server";
 import { serveStdio } from "@modelcontextprotocol/server/stdio";
 import { Client } from "@notionhq/client";
 import * as z from "zod/v4";
+import {LeetCode, Credential} from "leetcode-query";
+import dotenvx from '@dotenvx/dotenvx';
+dotenvx.config();
 
-const notion = new Client({ auth: process.env.NOTION_PAT! });
 const DATASOURCE_ID = process.env.NOTION_DATASOURCE_ID!;
 const session = process.env.LEETCODE_SESSION ?? "";
 const csrf = process.env.LEETCODE_CSRF_TOKEN ?? "";
+const username = process.env.LEETCODE_USERNAME ?? "";
+
+const notion = new Client({ auth: process.env.NOTION_PAT! });
+
+const credential = new Credential();
+await credential.init(session);
+const leetcode = new LeetCode(credential);
+const user = await leetcode.user(username);
+
 
 // const dataSource = await notion.dataSources.retrieve({ data_source_id: DATASOURCE_ID });
 
